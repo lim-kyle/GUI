@@ -30,23 +30,23 @@ class UserLogin():
 		self.lbl_Course=Label(self.frame, text = "COURSE :",font="Verdana,20",bd=20)
 		self.lbl_Course.grid(row=3,column=0)
 		n= tk.StringVar()
-		Course = ttk.Combobox(self.frame, width= 27, textvariable = n)
-		Course['values'] = ('BSIT',
+		self.Course = ttk.Combobox(self.frame, width= 27, textvariable = n)
+		self.Course['values'] = ('BSIT',
 							'CCS',
 							'COMP-E')
-		Course.grid(column=1, row=3)
-		Course.current()
+		self.Course.grid(column=1, row=3)
+		self.Course.current()
 		#>>>>>Level<<<<<
 		self.lbl_Level=Label(self.frame, text = "LEVEL :",font="Verdana,20",bd=20)
 		self.lbl_Level.grid(row=4,column=0)
 		L= tk.StringVar()
-		Level = ttk.Combobox(self.frame, width= 27, textvariable = L)
-		Level['values'] = ('1',
+		self.Level = ttk.Combobox(self.frame, width= 27, textvariable = L)
+		self.Level['values'] = ('1',
 							'2',
 							'3',
 							'4')
-		Level.grid(column=1, row=4)
-		Level.current()
+		self.Level.grid(column=1, row=4)
+		self.Level.current()
 		#---------------------------------------------------------
 		self.txt_idno=Entry(self.frame,text="idno",font="Verdana,20")
 		self.txt_idno.grid(row=0,column=1)		
@@ -55,16 +55,16 @@ class UserLogin():
 		self.txt_Firstname=Entry(self.frame,text="Firstname",font="Verdana,20")
 		self.txt_Firstname.grid(row=2,column=1)
 		
-		self.btn_Find = Button(self.frame,text="Find", font="Verdana,20")
-		self.btn_Find.grid(row=0,column=2,columnspan=1)
+		self.btn_Find = Button(self.frame,text="Find", font="Verdana,20", bg="Gold")
+		self.btn_Find.grid(row=0,column=3,columnspan=2)
 		
 		
-		self.Butt = Frame(self.frame,bd=20)
+		self.Butt = Frame(self.frame,bd=20,bg="Orange")
 		self.Butt.grid(row=10,column=0, columnspan=2)
 		
 		self.btn_New = Button(self.Butt,text="New", font="Verdana,20")
 		self.btn_New.grid(row=0,column=0, padx=10, sticky="w")
-		self.btn_Save = Button(self.Butt,text="Save", font="Verdana,20")
+		self.btn_Save = Button(self.Butt,text="Save", font="Verdana,20", command=self.savestudent)
 		self.btn_Save.grid(row=0,column=2, padx=10, sticky="w")
 		self.btn_Delete = Button(self.Butt,text="Delete", font="Verdana,20")
 		self.btn_Delete.grid(row=0,column=4, padx=10, sticky="w")
@@ -75,12 +75,13 @@ class UserLogin():
 		self.root.eval("tk::PlaceWindow . center")
 		self.root.mainloop()
 	def savestudent(self):
+		print("ASDASd")
 		idno:str = self.txt_idno.get()
 		lastname:str=self.txt_Lastname.get()
 		firstname:str=self.txt_Firstname.get()
-		course:str = Course.get()
-		level:str = Level.get()
-		
+		course:str = self.Course.get()
+		level:str = self.Level.get()
+	
 		okey:bool = addrecord('student', idno=idno, lastname=lastname,firstname=firstname,course=course,level=level)
 		if okey:
 			messagebox.showinfo("login status","LOGIN ACCEPTED")
